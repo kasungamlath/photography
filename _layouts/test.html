@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <title>Kasun Gamlath Photography</title>
     <style>
         /* Base Styles */
 
@@ -29,7 +30,7 @@
         }
 
         .container {
-            max-width: 92rem;
+            max-width: 99rem;
             margin: 0 auto;
             padding: 0 0rem;
         }
@@ -80,9 +81,7 @@
         /*
 The following code will only run if your browser supports CSS grid.
 Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling. 
-
 */
-
         @supports (display: grid) {
             .gallery {
                 display: grid;
@@ -104,26 +103,25 @@ Remove or comment-out the code block below to see how the browser will fall-back
         <div class="gallery">
             {% for image in site.images %}
             <div class="gallery-item" tabindex="0">
-                <img class="gallery-image"
-                    src="{{site.baseurl}}/assets/images/thumbs/{{ image.path | split: '/' | last | split: '.' | first }}.jpg"
-                    alt="Image 1">
+                <a href="{{site.baseurl}}/assets/images/fulls/{{ image.path | split: '/' | last | split: '.' | first }}.jpg"
+                    class="glightbox" data-gallery="gallery1">
+                    <img class="gallery-image"
+                        src="{{site.baseurl}}/assets/images/thumbs/{{ image.path | split: '/' | last | split: '.' | first }}.jpg"
+                        alt="Image">
+                </a>
             </div>
             {% endfor %}
         </div>
     </div>
 
-    <script>
-        // JavaScript code for image click event
-        const galleryItems = document.querySelectorAll('.gallery-item');
+    <script src="assets/js/glightbox.min.js"></script>
 
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const imgSrc = item.querySelector('img').getAttribute('src');
-                // You can perform further actions, such as displaying the image in a modal or redirecting to a detailed view page.
-                console.log('Image clicked:', imgSrc);
-            });
+    <script type="text/javascript">
+        const lightbox = GLightbox({
+            selector: '.glightbox',
         });
     </script>
+
 </body>
 
 </html>
